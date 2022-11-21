@@ -38,7 +38,7 @@ jobs:
         pip install coverage
     - name: Run coverage test for all files
       run : |
-        coverage run -m pytest tests
+        coverage run -m pytest
         coverage report -m
     - name: Get changed files
       id: changed-files
