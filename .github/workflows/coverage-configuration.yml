@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Setup action
+      uses: nschloe/action-cached-lfs-checkout@v1
+      
     - uses: actions/checkout@v3
     - name: Set up Python 3.7.9
       uses: actions/setup-python@v3
