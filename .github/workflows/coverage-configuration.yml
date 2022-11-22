@@ -43,6 +43,7 @@ jobs:
       run : |
         coverage run -m pytest
         coverage report -m
+        coverage json
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v23
@@ -77,3 +78,7 @@ jobs:
         else
           echo "No Python-related file was changed."
         fi
+    - name: Test angular action
+      uses:  demyanets/angular-coverage-badges-action@v1
+      with:
+        coverage-summary-path: tests/coverage.json
