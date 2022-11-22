@@ -81,4 +81,4 @@ jobs:
     - name: Test angular action
       uses:  demyanets/angular-coverage-badges-action@v1
       with:
-        coverage-summary-path: tests/coverage.json
+        coverage-summary-path: coverage.json
