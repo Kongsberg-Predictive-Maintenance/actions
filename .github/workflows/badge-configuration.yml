@@ -1,0 +1,55 @@
+name: Badge generation
+on: 
+  workflow_call:
+    secrets:
+      badge_name:
+        required: true
+      badge_value:
+        required: true
+      badge_color:
+        required: true
+      badge_file_name:
+        required: true  # Needs to have .svg extension, e.g. file_name.svg
+jobs:
+  badge:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    # Use the output from the `coverage` step
+    - name: Generate the badge SVG image
+      uses: emibcn/badge-action@v1
+      id: badge
+      with:
+        label: ${{ secrets.badge_name }}
+        status: ${{ secrets.badge_value }}
+        color: ${{ secrets.badge_color }}
+#         color: ${{
+#           needs.test.outputs.coverage > 90 && 'green'              ||
+#           needs.test.outputs.coverage > 80 && 'yellow,green'       ||
+#           needs.test.outputs.coverage > 70 && 'yellow'             ||
+#           needs.test.outputs.coverage > 60 && 'orange,yellow'      ||
+#           needs.test.outputs.coverage > 50 && 'orange'             ||
+#           needs.test.outputs.coverage > 40 && 'red,orange'         ||
+#           needs.test.outputs.coverage > 30 && 'red,red,orange'     ||
+#           needs.test.outputs.coverage > 20 && 'red,red,red,orange' ||
+#           'red' }}
+        path: badges/${{ secrets.badge_file_name }}
+
+    - name: Commit badge
+      env:
+        BRANCH: badges
+        FILE: ${{ secrets.badge_file_name }}
+      working-directory: ./badges
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add "${FILE}"   
+        # Will give error if badge did not changed
+        git commit -m "Add/Update badge" || true
+    - name: Push badge commit
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
