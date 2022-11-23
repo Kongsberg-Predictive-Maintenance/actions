@@ -7,6 +7,8 @@ on:
     secrets:
       organization_key:
         required: true
+      coverage_badge:
+        required: true
 
 jobs:
   build:
@@ -81,7 +83,7 @@ jobs:
     - name: Create Awesome Badge
       uses: schneegans/dynamic-badges-action@v1.6.0
       with:
-        auth: ${{ secrets.COVERAGE_BADGE }}
+        auth: ${{ secrets.coverage_badge }}
         gistID: ca82dc7820e839d1f2cca26f9e38879
         filename: badge.json
         label: Coverage
