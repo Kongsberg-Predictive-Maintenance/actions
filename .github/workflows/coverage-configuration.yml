@@ -83,7 +83,7 @@ jobs:
       with:
         auth: ${{ secrets.COVERAGE_BADGE }}
         gistID: ca82dc7820e839d1f2cca26f9e38879
-        filename: coverage.json
+        filename: badge.json
         label: Coverage
         message: 100%
         color: orange
