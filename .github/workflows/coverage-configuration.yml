@@ -78,7 +78,12 @@ jobs:
         else
           echo "No Python-related file was changed."
         fi
-    - name: Test angular action
-      uses:  demyanets/angular-coverage-badges-action@v1
+    - name: Create Awesome Badge
+      uses: schneegans/dynamic-badges-action@v1.6.0
       with:
-        coverage-summary-path: coverage.json
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: <gist-ID>
+        filename: coverage.json
+        label: Coverage
+        message: World
+        color: orange
