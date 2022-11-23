@@ -79,7 +79,7 @@ jobs:
           echo "No Python-related file was changed."
         fi
     - name: Create coverage badge
-      uses: emibcn/badge-action@v1.2.1
+      uses: emibcn/badge-action@v1.2.4
       with:
         label: 'Coverage'
         status: '53.4%'
