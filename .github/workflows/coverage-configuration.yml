@@ -87,5 +87,5 @@ jobs:
         gistID: 0a73238ce8271ecc139646d4cd61fb6b
         filename: badge.json
         label: Coverage
-        message: 100%
-        color: orange
+        message: 50%
+        color: green
