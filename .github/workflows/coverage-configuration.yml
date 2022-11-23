@@ -80,12 +80,10 @@ jobs:
         else
           echo "No Python-related file was changed."
         fi
-    - name: Create Awesome Badge
-      uses: schneegans/dynamic-badges-action@v1.6.0
+    - name: Create coverage badge
+      uses: emibcn/badge-action@v1.2.1
       with:
-        auth: ${{ secrets.coverage_badge }}
-        gistID: 0a73238ce8271ecc139646d4cd61fb6b
-        filename: badge.json
-        label: Coverage
-        message: 50%
-        color: green
+        label: 'Coverage'
+        status: '53.4%'
+        color: 'blue,555,daf'
+        path: '.github/badges/coverage.svg'
