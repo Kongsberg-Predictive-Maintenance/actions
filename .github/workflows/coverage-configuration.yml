@@ -83,8 +83,8 @@ jobs:
     - name: Create Awesome Badge
       uses: schneegans/dynamic-badges-action@v1.6.0
       with:
-        auth: ${{ secrets.coverage_badge }}
-        gistID: ca82dc7820e839d1f2cca26f9e38879
+        auth: ${{ secrets.COVERAGE_BADGE }}
+        gistID: 0a73238ce8271ecc139646d4cd61fb6b
         filename: badge.json
         label: Coverage
         message: 100%
