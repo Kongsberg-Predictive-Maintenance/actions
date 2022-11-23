@@ -7,8 +7,6 @@ on:
     secrets:
       organization_key:
         required: true
-      coverage_badge:
-        required: true
 
 jobs:
   build:
