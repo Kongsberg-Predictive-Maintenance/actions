@@ -44,7 +44,7 @@ jobs:
         coverage run -m pytest
         coverage report -m
         coverage json
-        coverage.json | jq .totals.percent_covered_display
+        echo $(coverage.json | jq .totals.percent_covered_display)
         
 #        total_score = $(jq '.totals.percent_covered_display' coverage.json)
 #        total_score = $(coverage json -o /dev/stdout | jq ".totals.percent_covered_display")        
