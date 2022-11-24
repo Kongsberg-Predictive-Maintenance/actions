@@ -74,16 +74,7 @@ jobs:
           env.COVERAGE_TOTAL_VALUE > 20 && 'red,red,red,orange' ||
           'red' }}
         path: coverage.svg
-
-#     - name: Commit badge
-#       run: |
-#         git config --local user.email "action@github.com"
-#         git config --local user.name "GitHub Action"
-#         mkdir -p badges
-#         mv "coverage.svg" "badges"
-#         git add "badges/coverage.svg"   
-#         git commit -m "Add/Update badge" || true
-
+        
     - name: Commit badge
       run: |
         git config --local user.email "action@github.com"
@@ -94,14 +85,7 @@ jobs:
         git add "badges/coverage.svg"   
         git commit -m "Add/Update badge" || true  
         git push
-      
-#     - name: Push badge commit
-#       uses: ad-m/github-push-action@master
-#       with:
-#         github_token: ${{ secrets.GITHUB_TOKEN }}
-#         branch: ${{ github.head_ref }}
-#         force_with_lease: true
-  
+
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v23
