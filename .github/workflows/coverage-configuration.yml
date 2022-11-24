@@ -48,15 +48,15 @@ jobs:
         coverage run -m pytest
         coverage report -m
         coverage json
-        echo "COVERAGE_TOTAL_VALUE=$(coverage json -o /dev/stdout | jq .totals.percent_covered)" >> $GITHUB_ENV
+        echo "COVERAGE_TOTAL_VALUE=$(coverage json -o /dev/stdout | jq .totals.percent_covered | xargs printf '%.0f')" >> $GITHUB_ENV
 
     - name: Generate the badge SVG image
       uses: emibcn/badge-action@v1
       id: badge
       with:
         label: "Coverage"
-        status: "$(printf '%.0f' ${{ env.COVERAGE_TOTAL_VALUE }}) %"
-#         status: "${{ env.COVERAGE_TOTAL_VALUE }} %"
+#         status: "$(printf '%.0f' ${{ env.COVERAGE_TOTAL_VALUE }}) %"
+        status: "${{ env.COVERAGE_TOTAL_VALUE }} %"
         color: ${{
           env.COVERAGE_TOTAL_VALUE > 90 && 'green'              ||
           env.COVERAGE_TOTAL_VALUE > 80 && 'yellow,green'       ||
