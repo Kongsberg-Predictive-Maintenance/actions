@@ -16,8 +16,13 @@ jobs:
     - name: Setup action
       uses: nschloe/action-cached-lfs-checkout@v1
       
-    - uses: actions/checkout@v3
+#     - uses: actions/checkout@v3
     
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
+
     - name: Set up Python 3.7.9
       uses: actions/setup-python@v3
       with:
@@ -67,11 +72,6 @@ jobs:
           env.COVERAGE_TOTAL_VALUE > 20 && 'red,red,red,orange' ||
           'red' }}
         path: coverage.svg
-
-    - uses: actions/checkout@v3
-      with:
-        ref: ${{ github.head_ref }}
-        fetch-depth: 0
 
     - name: Commit badge
       run: |
