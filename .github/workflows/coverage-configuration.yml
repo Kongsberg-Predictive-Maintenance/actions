@@ -55,7 +55,8 @@ jobs:
       id: badge
       with:
         label: "Coverage"
-        status: "${{ env.COVERAGE_TOTAL_VALUE }} %"
+        status: "printf '%.2f' ${{ env.COVERAGE_TOTAL_VALUE }}"
+#         status: "${{ env.COVERAGE_TOTAL_VALUE }} %"
         color: ${{
           env.COVERAGE_TOTAL_VALUE > 90 && 'green'              ||
           env.COVERAGE_TOTAL_VALUE > 80 && 'yellow,green'       ||
