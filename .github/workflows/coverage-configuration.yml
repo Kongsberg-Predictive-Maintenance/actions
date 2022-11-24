@@ -68,6 +68,11 @@ jobs:
           'red' }}
         path: coverage.svg
 
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
+
     - name: Commit badge
       run: |
         git config --local user.email "action@github.com"
@@ -75,7 +80,6 @@ jobs:
         mkdir -p badges
         mv "coverage.svg" "badges"
         git add "badges/coverage.svg"   
-        # Will give error if badge did not change
         git commit -m "Add/Update badge" || true
         
     - name: Push badge commit
