@@ -66,19 +66,15 @@ jobs:
           env.COVERAGE_TOTAL_VALUE > 30 && 'red,red,orange'     ||
           env.COVERAGE_TOTAL_VALUE > 20 && 'red,red,red,orange' ||
           'red' }}
-#         path: badges/coverage.svg
         path: coverage.svg
 
     - name: Commit badge
-      env:
-        FILE: coverage.svg
-#       working-directory: ./badges
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         mkdir -p badges
         mv "coverage.svg" "badges"
-        git add "badges/${FILE}"   
+        git add "badges/coverage.svg"   
         # Will give error if badge did not change
         git commit -m "Add/Update badge" || true
         
