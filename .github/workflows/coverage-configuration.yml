@@ -22,7 +22,8 @@ jobs:
         ref: ${{ github.head_ref }}
 
     - name: Branch name
-      run: echo running on branch ${GITHUB_REF##*/}
+      run: echo running on branch ${{ github.head_ref }}
+#       run: echo running on branch ${GITHUB_REF##*/}
 
     - name: Set up Python 3.7.9
       uses: actions/setup-python@v3
@@ -89,7 +90,7 @@ jobs:
         git config --local user.name "GitHub Action"
         mkdir -p badges
         mv "coverage.svg" "badges"
-        git checkout "${GITHUB_REF##*/}"
+        git checkout "${{ github.head_ref }}"
         git add "badges/coverage.svg"   
         git commit -m "Add/Update badge" || true  
         git push
