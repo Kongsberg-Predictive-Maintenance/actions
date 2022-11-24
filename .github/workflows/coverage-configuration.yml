@@ -44,14 +44,23 @@ jobs:
         coverage run -m pytest
         coverage report -m
         coverage json
-        echo "$(coverage json -o /dev/stdout | jq .totals.percent_covered)"
+        echo "COVERAGE_TOTAL_VALUE=$(coverage json -o /dev/stdout | jq .totals.percent_covered)" >> $GITHUB_ENV
         
+#        echo "$(coverage json -o /dev/stdout | jq .totals.percent_covered)"       
 #        total_score = $(jq '.totals.percent_covered_display' coverage.json)
 #        total_score = $(coverage json -o /dev/stdout | jq ".totals.percent_covered_display")        
 #        echo $(coverage json -o /dev/stdout | jq .totals.percent_covered_display)        
 #        cov_score=$(awk '$1 == "TOTAL" {print $NF+0}' coverage.json)
 #        echo "$cov_score"
-
+  
+    - name: Generate coverage badge
+      uses: Kongsberg-Predictive-Maintenance/actions/.github/workflows/badge-configuration.yml@development
+      with:
+        badge_name: "Coverage"
+        badge_value: ${{ env.COVERAGE_TOTAL_VALUE }}
+        badge_color: "green"
+        badge_file_name: "coverage.svg"
+  
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v23
