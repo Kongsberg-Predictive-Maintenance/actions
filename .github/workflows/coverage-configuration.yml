@@ -77,8 +77,9 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git fetch
         git add "${FILE}"   
-        # Will give error if badge did not changed
+        # Will give error if badge did not change
         git commit -m "Add/Update badge" || true
         
     - name: Push badge commit
