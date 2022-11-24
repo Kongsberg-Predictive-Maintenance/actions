@@ -44,8 +44,10 @@ jobs:
         coverage run -m pytest
         coverage report -m
         coverage json
-        cov_score=$(awk '$1 == "TOTAL" {print $NF+0}' coverage.json)
-        echo "$cov_score"
+        echo $(coverage json -o /dev/stdout | jq .totals.percent_covered) 
+        
+#        cov_score=$(awk '$1 == "TOTAL" {print $NF+0}' coverage.json)
+#        echo "$cov_score"
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v23
