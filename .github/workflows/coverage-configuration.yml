@@ -66,16 +66,16 @@ jobs:
       id: badge
       with:
         label: "Coverage"
-        status: ${{ env.COVERAGE_TOTAL_VALUE }}
+        status: "${{ env.COVERAGE_TOTAL_VALUE }} %"
         color: ${{
-          needs.test.outputs.coverage > 90 && 'green'              ||
-          needs.test.outputs.coverage > 80 && 'yellow,green'       ||
-          needs.test.outputs.coverage > 70 && 'yellow'             ||
-          needs.test.outputs.coverage > 60 && 'orange,yellow'      ||
-          needs.test.outputs.coverage > 50 && 'orange'             ||
-          needs.test.outputs.coverage > 40 && 'red,orange'         ||
-          needs.test.outputs.coverage > 30 && 'red,red,orange'     ||
-          needs.test.outputs.coverage > 20 && 'red,red,red,orange' ||
+          ${{ env.COVERAGE_TOTAL_VALUE }} > 90 && 'green'              ||
+          ${{ env.COVERAGE_TOTAL_VALUE }} > 80 && 'yellow,green'       ||
+          ${{ env.COVERAGE_TOTAL_VALUE }} > 70 && 'yellow'             ||
+          ${{ env.COVERAGE_TOTAL_VALUE }} > 60 && 'orange,yellow'      ||
+          ${{ env.COVERAGE_TOTAL_VALUE }} > 50 && 'orange'             ||
+          ${{ env.COVERAGE_TOTAL_VALUE }} > 40 && 'red,orange'         ||
+          ${{ env.COVERAGE_TOTAL_VALUE }} > 30 && 'red,red,orange'     ||
+          ${{ env.COVERAGE_TOTAL_VALUE }} > 20 && 'red,red,red,orange' ||
           'red' }}
         path: badges/coverage.svg
 
