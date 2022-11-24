@@ -53,13 +53,13 @@ jobs:
 #        cov_score=$(awk '$1 == "TOTAL" {print $NF+0}' coverage.json)
 #        echo "$cov_score"
   
-    - name: Generate coverage badge
-      uses: Kongsberg-Predictive-Maintenance/actions/.github/workflows/badge-configuration.yml@development
-      with:
-        badge_name: "Coverage"
-        badge_value: ${{ env.COVERAGE_TOTAL_VALUE }}
-        badge_color: "green"
-        badge_file_name: "coverage.svg"
+#     - name: Generate coverage badge
+#       uses: Kongsberg-Predictive-Maintenance/actions/.github/workflows/badge-configuration.yml@development
+#       with:
+#         badge_name: "Coverage"
+#         badge_value: ${{ env.COVERAGE_TOTAL_VALUE }}
+#         badge_color: "green"
+#         badge_file_name: "coverage.svg"
   
     - name: Get changed files
       id: changed-files
