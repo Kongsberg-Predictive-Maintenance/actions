@@ -16,12 +16,13 @@ jobs:
     - name: Setup action
       uses: nschloe/action-cached-lfs-checkout@v1
       
-#     - uses: actions/checkout@v3
-    
-    - uses: actions/checkout@v3
+    - name: Git checkout
+      uses: actions/checkout@v3
       with:
         ref: ${{ github.head_ref }}
-        fetch-depth: 0
+
+    - name: Branch name
+      run: echo running on branch ${GITHUB_REF##*/}
 
     - name: Set up Python 3.7.9
       uses: actions/setup-python@v3
@@ -73,21 +74,32 @@ jobs:
           'red' }}
         path: coverage.svg
 
+#     - name: Commit badge
+#       run: |
+#         git config --local user.email "action@github.com"
+#         git config --local user.name "GitHub Action"
+#         mkdir -p badges
+#         mv "coverage.svg" "badges"
+#         git add "badges/coverage.svg"   
+#         git commit -m "Add/Update badge" || true
+
     - name: Commit badge
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         mkdir -p badges
         mv "coverage.svg" "badges"
+        git checkout "${GITHUB_REF##*/}"
         git add "badges/coverage.svg"   
-        git commit -m "Add/Update badge" || true
-        
-    - name: Push badge commit
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.head_ref }}
-        force_with_lease: true
+        git commit -m "Add/Update badge" || true  
+        git push
+      
+#     - name: Push badge commit
+#       uses: ad-m/github-push-action@master
+#       with:
+#         github_token: ${{ secrets.GITHUB_TOKEN }}
+#         branch: ${{ github.head_ref }}
+#         force_with_lease: true
   
     - name: Get changed files
       id: changed-files
