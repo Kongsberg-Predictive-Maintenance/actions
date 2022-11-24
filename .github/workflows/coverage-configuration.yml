@@ -44,8 +44,10 @@ jobs:
         coverage run -m pytest
         coverage report -m
         coverage json
-        echo $(coverage json -o /dev/stdout | jq .totals.percent_covered_display) 
+        total_score = $(coverage json -o /dev/stdout | jq ".totals.percent_covered_display") 
+        echo "$(total_score)"
         
+#        echo $(coverage json -o /dev/stdout | jq .totals.percent_covered_display)        
 #        cov_score=$(awk '$1 == "TOTAL" {print $NF+0}' coverage.json)
 #        echo "$cov_score"
     - name: Get changed files
