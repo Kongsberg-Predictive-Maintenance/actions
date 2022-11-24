@@ -43,7 +43,7 @@ jobs:
       run : |
         coverage run -m pytest
         coverage report -m
-        echo "Final result: ${{coverage json -o /dev/stdout | jq .totals.percent_covered}}"
+        coverage json -o /dev/stdout | jq .totals.percent_covered
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v23
