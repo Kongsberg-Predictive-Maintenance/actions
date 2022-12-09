@@ -49,6 +49,41 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r tests/requirements_tests.txt
         pip install coverage
+
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v23
+      with:
+        files: |
+          **/*.py
+
+    - name: Check which files were changed
+      run: |
+       if [ ${{ steps.changed-files.outputs.any_changed }} == "true" ]
+          then
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+        else
+          echo "No Python-related file was changed."
+        fi
+        
+    - name: Test coverage level of changed files 
+      run : |
+        if [ ${{ steps.changed-files.outputs.any_changed }} == "true" ]
+          then
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file is checked..."
+            COVERAGE_RESULT=(coverage report --fail-under=85 --include=${file}) >> $GITHUB_ENV
+            if [ ${{ COVERAGE_RESULT }} == "No data to report." ]
+              then
+              echo "Coverage for $file is null."
+            fi
+          done
+        else
+          echo "No Python-related file was changed."
+        fi
+        
     - name: Run coverage test for all files
       run : |
         coverage run -m pytest
@@ -84,37 +119,3 @@ jobs:
         git add "badges/coverage.svg"   
         git commit -m "Add/Update badge" || true  
         git push
-
-    - name: Get changed files
-      id: changed-files
-      uses: tj-actions/changed-files@v23
-      with:
-        files: |
-          **/*.py
-
-    - name: Check which files were changed
-      run: |
-       if [ ${{ steps.changed-files.outputs.any_changed }} == "true" ]
-          then
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
-        else
-          echo "No Python-related file was changed."
-        fi
-        
-    - name: Test coverage level of changed files 
-      run : |
-        if [ ${{ steps.changed-files.outputs.any_changed }} == "true" ]
-          then
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file is checked..."
-            COVERAGE_RESULT=(coverage report --fail-under=85 --include=${file}) >> $GITHUB_ENV
-            if [ ${{ COVERAGE_RESULT }} == "No data to report." ]
-              then
-              echo "Coverage for $file is null."
-            fi
-          done
-        else
-          echo "No Python-related file was changed."
-        fi
