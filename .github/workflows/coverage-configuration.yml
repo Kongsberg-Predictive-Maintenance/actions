@@ -67,7 +67,14 @@ jobs:
         else
           echo "No Python-related file was changed."
         fi
-        
+    
+    - name: Run coverage test for all files
+      run : |
+        coverage run -m pytest
+        coverage report -m
+        coverage json
+        echo "COVERAGE_TOTAL_VALUE=$(coverage json -o /dev/stdout | jq .totals.percent_covered | xargs printf '%.0f')" >> $GITHUB_ENV
+
     - name: Test coverage level of changed files 
       run : |
         if [ ${{ steps.changed-files.outputs.any_changed }} == "true" ]
@@ -80,13 +87,6 @@ jobs:
         else
           echo "No Python-related file was changed."
         fi
-        
-    - name: Run coverage test for all files
-      run : |
-        coverage run -m pytest
-        coverage report -m
-        coverage json
-        echo "COVERAGE_TOTAL_VALUE=$(coverage json -o /dev/stdout | jq .totals.percent_covered | xargs printf '%.0f')" >> $GITHUB_ENV
 
     - name: Generate the badge SVG image
       uses: emibcn/badge-action@v1
