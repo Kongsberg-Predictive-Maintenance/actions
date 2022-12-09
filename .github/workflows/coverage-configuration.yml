@@ -108,7 +108,12 @@ jobs:
         if [ ${{ steps.changed-files.outputs.any_changed }} == "true" ]
           then
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            coverage report --fail-under=85 --include=${file}
+            echo "$file is checked..."
+            COVERAGE_RESULT=(coverage report --fail-under=85 --include=${file}) >> $GITHUB_ENV
+            if [ ${{ COVERAGE_RESULT }} == "No data to report." ]
+              then
+              echo "Coverage for $file is null."
+            fi
           done
         else
           echo "No Python-related file was changed."
