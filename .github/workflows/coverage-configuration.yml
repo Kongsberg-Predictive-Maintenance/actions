@@ -72,6 +72,7 @@ jobs:
       run : |
         if [ ${{ steps.changed-files.outputs.any_changed }} == "true" ]
           then
+          echo "Note: 'No data to report' means coverage equal to 0%."
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
               echo "${file} is checked..."
               coverage report --fail-under=85 --include=${file}
