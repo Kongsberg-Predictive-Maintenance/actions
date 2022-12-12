@@ -3,7 +3,7 @@ on:
   workflow_call:
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     name: Flake
     steps:
     - name: Setup action
