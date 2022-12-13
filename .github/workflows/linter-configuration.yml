@@ -25,6 +25,9 @@ jobs:
       with:
         files: |
           **/*.py
+        files_ignore: |
+          doc/**
+          badges/**
 
     - name: List all changed files
       run: |
