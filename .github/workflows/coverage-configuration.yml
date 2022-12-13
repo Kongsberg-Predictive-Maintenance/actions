@@ -56,6 +56,9 @@ jobs:
       with:
         files: |
           **/*.py
+        files_ignore: |
+          doc/**
+          badges/**
 
     - name: Check which files were changed
       run: |
