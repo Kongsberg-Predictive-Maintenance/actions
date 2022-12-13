@@ -73,7 +73,7 @@ jobs:
     
     - name: Run coverage test for all files
       run : |
-        coverage run -m pytest
+        coverage run -m pytest tests
         coverage report -m
         coverage json
         echo "COVERAGE_TOTAL_VALUE=$(coverage json -o /dev/stdout | jq .totals.percent_covered | xargs printf '%.0f')" >> $GITHUB_ENV
