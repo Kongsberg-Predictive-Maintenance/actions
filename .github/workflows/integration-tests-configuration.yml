@@ -37,7 +37,7 @@ jobs:
         python -m pip install --upgrade pip
         git clone git@github.com:Kongsberg-Predictive-Maintenance/thruster-digital-twin.git
         pip install -r thruster-digital-twin/requirements.txt
-        pip install -r thruster-digital-twin/integration_tests/requirements_integration_tests.txt
+        pip install -r ./thruster-digital-twin/integration_tests/requirements_integration_tests.txt
         pip install .
 
     - name: Test with pytest
