@@ -40,6 +40,10 @@ jobs:
         pip install -r ../thruster-digital-twin/integration_tests/requirements_integration_tests.txt
         pip install .
         
+    - name: Integration tests with pytest
+      run: |
+        python -m pytest ../thruster-digital-twin/integration_tests
+        
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v18.6
