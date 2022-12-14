@@ -39,7 +39,29 @@ jobs:
         pip install -r thruster-digital-twin/requirements.txt
         pip install -r ../thruster-digital-twin/integration_tests/requirements_integration_tests.txt
         pip install .
-
-    - name: Test with pytest
+        
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v18.6
+      with:
+        files: |
+          **/*.py
+        files_ignore: |
+          doc/**
+          badges/**
+          
+    - name: List all changed files
       run: |
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          echo "$file was changed"
+        done
+        
+    - name: Analyze the code with integration tests
+      run: |
+        if [ ${{ steps.changed-files.outputs.any_changed }} == "true" ]
+        then
         python -m pytest ../thruster-digital-twin/integration_tests
+        else
+        echo "No Python-related file, which should trigger integration tests, was changed."
+        fi
+
