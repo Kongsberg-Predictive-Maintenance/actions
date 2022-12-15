@@ -59,7 +59,6 @@ jobs:
         files_ignore: |
           doc/**
           badges/**
-          base.py
 
     - name: Check which files were changed
       run: |
