@@ -59,6 +59,7 @@ jobs:
         files_ignore: |
           doc/**
           badges/**
+          integration_tests/**
 
     - name: Check which files were changed
       run: |
