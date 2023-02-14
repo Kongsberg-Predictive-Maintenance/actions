@@ -11,11 +11,14 @@ jobs:
     steps:
     - name: Setup action
       uses: nschloe/action-cached-lfs-checkout@v1
+      with: 
+        exclude: "docs/*"
 
     - name: Setup Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: 3.7
+        cache: 'pip' # caching pip dependencies
 
     - name: Load private keys to pipeline
       uses: webfactory/ssh-agent@v0.5.2
