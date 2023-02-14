@@ -9,10 +9,6 @@ jobs:
     name: Integration tests
     runs-on: ubuntu-20.04
     steps:
-    - name: Setup action
-      uses: nschloe/action-cached-lfs-checkout@v1
-      with: 
-        exclude: "docs/*"
 
     - name: Setup Python
       uses: actions/setup-python@v4
