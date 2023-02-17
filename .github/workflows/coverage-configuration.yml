@@ -16,7 +16,7 @@ jobs:
     - name: Setup action
       uses: nschloe/action-cached-lfs-checkout@v1
       with:
-          exclude: "docs/*"
+          exclude: "doc/*"
       
     - name: Git checkout
       uses: actions/checkout@v3
