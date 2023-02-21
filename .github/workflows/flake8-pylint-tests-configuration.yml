@@ -1,11 +1,15 @@
-name: Flake
+name: Flake, PyLint, Tests
 on: 
   workflow_call:
+    secrets:
+      organization_key:
+        required: true
 jobs:
   build:
     runs-on: ubuntu-20.04
-    name: Flake
+    name: Flake, PyLint, Tests 
     steps:
+    
     - name: Cached LFS checkout
       uses: nschloe/action-cached-lfs-checkout@v1.1.2
       with:
@@ -16,6 +20,21 @@ jobs:
       with:
         python-version: 3.7
         cache: 'pip' # caching pip dependencies
+        
+    - name: Load private keys to pipeline
+      uses: webfactory/ssh-agent@v0.5.2
+      with:
+        ssh-private-key: |
+          ${{ secrets.organization_key }}
+          
+    - name: Cache dependencies to speed up the workflow
+      uses: actions/cache@v1
+      id:   cache
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements_tests.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
 
     - name: Install dependencies
       run: |
@@ -23,6 +42,8 @@ jobs:
         python -m pip install flake8-eradicate  
         python -m pip install radon
         python -m pip install dlint
+        python -m pip install "pylint==2.13.5"
+        pip install -r tests/requirements_tests.txt
  
     - name: Get changed files
       id: changed-files
@@ -45,3 +66,13 @@ jobs:
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
           python -m flake8 --radon-max-cc 6 --max-line-length 100 "$file"
         done
+
+    - name: Analyze the code with linter
+      run: |
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          python -m pylint "$file" --rcfile ".pylintrc"
+        done
+        
+    - name: Test with pytest
+      run: |
+        python -m pytest tests
