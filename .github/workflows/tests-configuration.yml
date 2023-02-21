@@ -1,4 +1,4 @@
-name: Tests
+name: Linter, Flake8, Tests
 on: 
   workflow_call:
     secrets:
@@ -6,7 +6,7 @@ on:
         required: true
 jobs:
   build:
-    name: Tests
+    name: Linter, Flake8, Tests
     runs-on: ubuntu-20.04
     steps:
     - name: Setup action
