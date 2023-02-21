@@ -1,6 +1,9 @@
 name: Flake
 on: 
   workflow_call:
+    secrets:
+      organization_key:
+        required: true
 jobs:
   build:
     runs-on: ubuntu-20.04
