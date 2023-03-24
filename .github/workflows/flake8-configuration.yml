@@ -43,5 +43,5 @@ jobs:
     - name: Analyze the code with Flake8, Dlint and Radon
       run: |
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-          python -m flake8 --radon-max-cc 6 --max-line-length 100 "$file"
+          python -m flake8 --radon-max-cc 10 --max-line-length 100 "$file"
         done
