@@ -120,7 +120,7 @@ jobs:
         git config --local user.name "GitHub Action"
         mkdir -p badges
         mv "coverage.svg" "badges"
-        git checkout "${{ github.head_ref }}"
+        git checkout "${{ github.ref }}"
         git add "badges/coverage.svg"   
         git commit -m "Add/Update badge" || true  
         git push
