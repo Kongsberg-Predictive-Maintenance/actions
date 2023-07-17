@@ -39,7 +39,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r tests/requirements_tests.txt
-        python -m pip install "pylint==2.13.5"
+        python -m pip install "pylint==2.17.4"
         python -m pip install flake8-eradicate  
         python -m pip install radon
         python -m pip install dlint
