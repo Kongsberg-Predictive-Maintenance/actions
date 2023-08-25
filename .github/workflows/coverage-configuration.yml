@@ -64,6 +64,7 @@ jobs:
           badges/**
           tests/**
           integration_tests/**
+          setup.py
 
     - name: Check which files were changed
       run: |
